@@ -75,7 +75,9 @@ public class Pauser : MonoBehaviour {
             obj.OnPause();
         if (!SceneManager.GetSceneByName("Pause").isLoaded)
             SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+        SoundManager.PlayerPlayerSe("pauseSe");
         SoundManager.PauseBgm();
+        SoundManager.PauseGimmickSe();
     }
 
     public static void Resume()
@@ -85,6 +87,7 @@ public class Pauser : MonoBehaviour {
         if (SceneManager.GetSceneByName("Pause").isLoaded)
             SceneManager.UnloadSceneAsync("Pause");
         SoundManager.UnPauseBgm();
+        SoundManager.UnPauseGimmickSe();
     }
 
     public static void DestoryTarget(){

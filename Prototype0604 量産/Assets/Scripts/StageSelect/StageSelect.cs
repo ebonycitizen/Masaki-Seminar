@@ -88,10 +88,13 @@ public class StageSelect : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdateInput();
 
+    }
+    void FixedUpdate()
+    {
         ShowStage2ImgObj();
         ShowDifficulty();
         ShowClear();
@@ -243,6 +246,7 @@ public class StageSelect : MonoBehaviour {
 
         if (oldh == 0 && nowh != 0)
         {
+            SoundManager.PlayerPlayerSe("cursorSe");
             if (Input.GetAxis("Horizontal") > 0)
                 stageNum++;
             if (Input.GetAxis("Horizontal") < 0)
@@ -262,12 +266,14 @@ public class StageSelect : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
+            SoundManager.PlayerPlayerSe("cancelSe");
             if (SoundManager.IsPlayingBgm())
                 SoundManager.StopBGM();
             SceneManager.LoadScene("Menu");
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton0)||Input.GetKeyDown(KeyCode.Space))
         {
+            SoundManager.PlayerPlayerSe("decisionSe");
             if (SoundManager.IsPlayingBgm())
                 SoundManager.StopBGM();
             SceneManager.LoadScene("Loading");

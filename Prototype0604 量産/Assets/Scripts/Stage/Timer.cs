@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         UpdateTimer();
         ChangeTimerText();
         if (lifeControl.lifeCount == 0)

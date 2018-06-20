@@ -8667,7 +8667,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640338906154672}
   m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 97786279016037d4ea9939636f428b41, type: 3}
+  m_Avatar: {fileID: 9000000, guid: de87bbecc754bef4fbc734f969f13786, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -8684,7 +8684,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880873921664742}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 97786279016037d4ea9939636f428b41, type: 3}
+  m_Avatar: {fileID: 9000000, guid: de87bbecc754bef4fbc734f969f13786, type: 3}
   m_Controller: {fileID: 9100000, guid: 5e22d856e22c7dc458bc4038b601e989, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0

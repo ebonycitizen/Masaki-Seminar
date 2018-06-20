@@ -175,6 +175,9 @@ public class PlayerController : MonoBehaviour
     {
         foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
         {
+            if (key == KeyCode.Mouse0 || key == KeyCode.Mouse1 || key == KeyCode.Mouse2 ||
+                key == KeyCode.Mouse3 || key == KeyCode.Mouse4 || key == KeyCode.Mouse5 || key == KeyCode.Mouse6)
+                    continue;
             if (Input.GetKeyDown(key))
                 return true;
         }
@@ -282,7 +285,7 @@ public class PlayerController : MonoBehaviour
                 && !airJumpEnable
                 && onBedCount == 0
                 && !onBed
-                && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+                /*&& !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump")*/)
             {
                 g_duringJump = true;
                 anim.SetBool("Jump", true);

@@ -18,11 +18,11 @@ public class Stage5Script : MonoBehaviour
 
     public static string mshinItoName2 = "ミシン糸２";
     public float fallenVeloc2 = 3;
-    public float conflictForce2 = 5;
+    public float conflictForce2 = 6;
 
     public static string mshinItoName3 = "ミシン糸３";
     public float fallenVeloc3 = 3;
-    public float conflictForce3 = 5;
+    public float conflictForce3 = 6;
 
     public void ResetStage()
     {
@@ -56,7 +56,6 @@ public class Stage5Script : MonoBehaviour
         mshinIto[0].GetComponent<MshinItoScript>().SetFallenStone();
         mshinIto[1].GetComponent<MshinItoScript>().SetFallenStone();
         mshinIto[2].GetComponent<MshinItoScript>().SetFallenStone();
-
         if (UIScript.parameter_ChangeEnable)
             SetParameterInRealTime();
     }

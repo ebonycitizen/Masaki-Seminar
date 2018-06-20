@@ -66,7 +66,7 @@ defaultPos.z));
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //滑車を回す
         kassa.transform.Rotate(0, 0, 2);

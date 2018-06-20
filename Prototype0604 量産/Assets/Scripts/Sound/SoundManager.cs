@@ -33,9 +33,11 @@ public class SoundManager {
 
     GameObject soundPlayer;
     AudioSource audioSourceBgm;
-    AudioSource audioSourceSe;
+    AudioSource audioSourcePlayerSe;
+    AudioSource audioSourceGimmickSe;
     Dictionary<string, AudioClipInfo> poolBgm = new Dictionary<string, AudioClipInfo>();
-    Dictionary<string, AudioClipInfo> poolSe = new Dictionary<string, AudioClipInfo>();
+    Dictionary<string, AudioClipInfo> poolPlayerSe = new Dictionary<string, AudioClipInfo>();
+    Dictionary<string, AudioClipInfo> poolGimmickSe = new Dictionary<string, AudioClipInfo>();
     #endregion
 
     public SoundManager()
@@ -43,18 +45,23 @@ public class SoundManager {
         poolBgm.Add("titleBgm", new AudioClipInfo("titleBgm", "Sound/bgm/TitleBgm"));
         poolBgm.Add("stageBgm", new AudioClipInfo("stageBgm", "Sound/bgm/StageBgm"));
 
-        poolSe.Add("jumpSe", new AudioClipInfo("jumpSe", "Sound/se/Character/jump3"));
-        poolSe.Add("walkSe", new AudioClipInfo("walkSe", "Sound/se/Character/walk4"));
+        poolPlayerSe.Add("jumpSe", new AudioClipInfo("jumpSe", "Sound/se/Character/jump3"));
+        poolPlayerSe.Add("walkSe", new AudioClipInfo("walkSe", "Sound/se/Character/walk4"));
 
-        poolSe.Add("clearSe", new AudioClipInfo("clearSe", "Sound/se/Effect/Clear2"));
-        poolSe.Add("doorSe", new AudioClipInfo("doorSe", "Sound/se/Effect/Door2"));
-        poolSe.Add("ghostSe", new AudioClipInfo("ghostSe", "Sound/se/Effect/GhostSpawn2"));
+        poolPlayerSe.Add("clearSe", new AudioClipInfo("clearSe", "Sound/se/Effect/Clear2"));
+        poolPlayerSe.Add("doorSe", new AudioClipInfo("doorSe", "Sound/se/Effect/Door2"));
+        poolPlayerSe.Add("ghostSe", new AudioClipInfo("ghostSe", "Sound/se/Effect/GhostSpawn2"));
 
-        poolSe.Add("bedSe", new AudioClipInfo("walkSe", "Sound/se/Gimmick/BedJump"));
-        poolSe.Add("pendulumSe", new AudioClipInfo("walkSe", "Sound/se/Gimmick/Pendulum"));
-        poolSe.Add("pierceSe", new AudioClipInfo("walkSe", "Sound/se/Gimmick/Pierce"));
-        poolSe.Add("pressSe", new AudioClipInfo("walkSe", "Sound/se/Gimmick/PressingMachine"));
-        poolSe.Add("rockSe", new AudioClipInfo("walkSe", "Sound/se/Gimmick/RollingRock"));
+        poolPlayerSe.Add("decisionSe", new AudioClipInfo("decisionSe", "Sound/se/UI/decision"));
+        poolPlayerSe.Add("cursorSe", new AudioClipInfo("cursorSe", "Sound/se/UI/cursor"));
+        poolPlayerSe.Add("cancelSe", new AudioClipInfo("cancelSe", "Sound/se/UI/cancel"));
+        poolPlayerSe.Add("pauseSe", new AudioClipInfo("pauseSe", "Sound/se/UI/pause"));
+
+        poolGimmickSe.Add("bedSe", new AudioClipInfo("bedSe", "Sound/se/Gimmick/BedJump"));
+        poolGimmickSe.Add("pendulumSe", new AudioClipInfo("pendulumSe", "Sound/se/Gimmick/Pendulum"));
+        poolGimmickSe.Add("pressSe", new AudioClipInfo("pressSe", "Sound/se/Gimmick/PressingMachine"));
+        poolGimmickSe.Add("rollSe", new AudioClipInfo("rollSe", "Sound/se/Gimmick/RollingRock"));
+        poolGimmickSe.Add("iwaSe", new AudioClipInfo("iwaSe", "Sound/se/Gimmick/iwa"));
     }
 
     #region bgm
@@ -125,31 +132,32 @@ public class SoundManager {
     }
     #endregion
 
-    #region se
-    public static bool PlaySe(string seName)
+    #region player se
+    public static bool PlayerPlayerSe(string seName)
     {
-        return GetInstance()._PlaySe(seName);
+        return GetInstance()._PlayPlayerSe(seName);
     }
-    bool _PlaySe(string seName)
+    bool _PlayPlayerSe(string seName)
     {
-        if (!poolSe.ContainsKey(seName))
+        if (!poolPlayerSe.ContainsKey(seName))
             return false;
 
-        AudioClipInfo info = poolSe[seName];
+        AudioClipInfo info = poolPlayerSe[seName];
         if (soundPlayer == null)
         {
             soundPlayer = new GameObject("SoundPlayer");
             GameObject.DontDestroyOnLoad(soundPlayer);
-            audioSourceSe = soundPlayer.AddComponent<AudioSource>();
-            audioSourceSe.clip = info.audioClip;
+
+            audioSourcePlayerSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourcePlayerSe.clip = info.audioClip;
         }
         if (!HasExitSound(info))
         {
-            audioSourceSe = soundPlayer.AddComponent<AudioSource>();
-            audioSourceSe.clip = info.audioClip;
+            audioSourcePlayerSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourcePlayerSe.clip = info.audioClip;
         }
 
-        audioSourceSe.PlayOneShot(info.audioClip, 0.5f);
+        audioSourcePlayerSe.PlayOneShot(info.audioClip, 0.5f);
 
         return true;
     }
@@ -163,47 +171,153 @@ public class SoundManager {
 
         return false;
     }
-    public static bool StopSe()
+    public static bool StopPlayerSe()
     {
-        return GetInstance()._StopSe();
+        return GetInstance()._StopPlayerSe();
     }
 
-    //bool _StopSe(string seName)
-    //{
-    //    if (audioSourceSe == null)
-    //        return false;
-
-    //    AudioClipInfo info = poolSe[seName];
-    //    foreach (AudioSource source in soundPlayer.GetComponents<AudioSource>())
-    //    {
-    //        if (info.audioClip == source.clip)
-    //        {
-    //            source.Stop();
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
-
-    bool _StopSe()
+    bool _StopPlayerSe()
     {
-        if (audioSourceSe == null)
+        if (audioSourcePlayerSe == null)
             return false;
-        audioSourceSe.Stop();
+        audioSourcePlayerSe.Stop();
         return true;
     }
 
-    public static bool IsPlayingSe()
+    public static bool IsPlayingPlayerSe()
     {
-        return GetInstance()._IsPlayingSe();
+        return GetInstance()._IsPlayingPlayerSe();
     }
 
-    bool _IsPlayingSe()
+    bool _IsPlayingPlayerSe()
     {
-        if (audioSourceSe != null)
-            return audioSourceSe.isPlaying;
+        if (audioSourcePlayerSe != null)
+            return audioSourcePlayerSe.isPlaying;
 
         return false;
+    }
+
+    public static bool PausePlayerSe()
+    {
+        return GetInstance()._PausePlayerSe();
+    }
+    bool _PausePlayerSe()
+    {
+        audioSourcePlayerSe.Pause();
+        return true;
+    }
+
+    public static bool UnPausePlayerSe()
+    {
+        return GetInstance()._UnPausePlayerSe();
+    }
+    bool _UnPausePlayerSe()
+    {
+        audioSourcePlayerSe.UnPause();
+        return true;
+    }
+    #endregion
+
+    #region gimmick se
+    public static bool PlayGimmickSe(string seName)
+    {
+        return GetInstance()._PlayGimmickSe(seName);
+    }
+    bool _PlayGimmickSe(string seName)
+    {
+        if (!poolGimmickSe.ContainsKey(seName))
+            return false;
+
+        AudioClipInfo info = poolGimmickSe[seName];
+        if (soundPlayer == null)
+        {
+            soundPlayer = new GameObject("SoundPlayer");
+            GameObject.DontDestroyOnLoad(soundPlayer);
+
+            audioSourceGimmickSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourceGimmickSe.clip = info.audioClip;
+        }
+        if (!HasExitSound(info))
+        {
+            audioSourceGimmickSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourceGimmickSe.clip = info.audioClip;
+        }
+
+        audioSourceGimmickSe.PlayOneShot(info.audioClip, 0.5f);
+
+        return true;
+    }
+    public static bool PlayGimmickSe(string seName,float volume)
+    {
+        return GetInstance()._PlayGimmickSe(seName, volume);
+    }
+    bool _PlayGimmickSe(string seName, float volume)
+    {
+        if (!poolGimmickSe.ContainsKey(seName))
+            return false;
+
+        AudioClipInfo info = poolGimmickSe[seName];
+        if (soundPlayer == null)
+        {
+            soundPlayer = new GameObject("SoundPlayer");
+            GameObject.DontDestroyOnLoad(soundPlayer);
+
+            audioSourceGimmickSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourceGimmickSe.clip = info.audioClip;
+        }
+        if (!HasExitSound(info))
+        {
+            audioSourceGimmickSe = soundPlayer.AddComponent<AudioSource>();
+            audioSourceGimmickSe.clip = info.audioClip;
+        }
+        audioSourceGimmickSe.PlayOneShot(info.audioClip, volume);
+
+        return true;
+    }
+    public static bool StopGimmickSe()
+    {
+        return GetInstance()._StopGimmickSe();
+    }
+
+    bool _StopGimmickSe()
+    {
+        if (audioSourceGimmickSe == null)
+            return false;
+        audioSourceGimmickSe.Stop();
+        return true;
+    }
+
+    public static bool IsPlayingGimmickSe()
+    {
+        return GetInstance()._IsPlayingGimmickSe();
+    }
+
+    bool _IsPlayingGimmickSe()
+    {
+        if (audioSourceGimmickSe != null)
+            return audioSourceGimmickSe.isPlaying;
+
+        return false;
+    }
+
+    public static bool PauseGimmickSe()
+    {
+        return GetInstance()._PauseGimmickSe();
+    }
+    bool _PauseGimmickSe()
+    {
+        audioSourceGimmickSe.Pause();
+        return true;
+    }
+
+    public static bool UnPauseGimmickSe()
+    {
+        return GetInstance()._UnPauseGimmickSe();
+    }
+    bool _UnPauseGimmickSe()
+    {
+        audioSourceGimmickSe.UnPause();
+        return true;
     }
     #endregion
 }

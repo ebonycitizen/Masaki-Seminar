@@ -55,11 +55,15 @@ public class Menu : MonoBehaviour {
         pv = GameObject.Find("pv").GetComponent<Image>();
         exit = GameObject.Find("exit").GetComponent<Image>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Update()
+    {
         UpdateInput();
         Select();
+    }
+    // Update is called once per frame
+    void FixedUpdate () {
+
         DrawMenu();
     }
 
@@ -123,6 +127,7 @@ public class Menu : MonoBehaviour {
 
         if (old == 0 && now != 0)
         {
+            SoundManager.PlayerPlayerSe("cursorSe");
             if (Input.GetAxis("Vertical") < 0)
                 menuState++;
             if (Input.GetAxis("Vertical") > 0)
@@ -141,6 +146,7 @@ public class Menu : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.JoystickButton0)||Input.GetKeyDown(KeyCode.Space))
         {
+            SoundManager.PlayerPlayerSe("decisionSe");
             switch (menuState)
             {
                 case MenuState.MenuState_SelectStage:

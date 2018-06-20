@@ -29,8 +29,8 @@ public class EffectSe : MonoBehaviour {
     {
         if (oldCanControlPlayer != playerController.P_CanControlPlayer)
         {
-            SoundManager.StopSe();
-            SoundManager.PlaySe("clearSe");
+            SoundManager.StopPlayerSe();
+            SoundManager.PlayerPlayerSe("clearSe");
         }
         oldCanControlPlayer = playerController.P_CanControlPlayer;
     }
@@ -39,7 +39,7 @@ public class EffectSe : MonoBehaviour {
     {
         if(oldPlayClearAnimation != playerController.P_playClearAnimation)
         {
-            SoundManager.PlaySe("doorSe");
+            SoundManager.PlayerPlayerSe("doorSe");
         }
         oldPlayClearAnimation = playerController.P_playClearAnimation;
     }
@@ -47,7 +47,7 @@ public class EffectSe : MonoBehaviour {
     void PlayGhostRespwanSe()
     {
         if (oldLifeCount == 1 && playerLifeControl.lifeCount == 0)
-            SoundManager.PlaySe("ghostSe");
+            SoundManager.PlayerPlayerSe("ghostSe");
 
         oldLifeCount = playerLifeControl.lifeCount;
     }

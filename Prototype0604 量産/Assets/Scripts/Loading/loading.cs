@@ -20,7 +20,7 @@ public class Loading : MonoBehaviour
 
     void UnLoadStage()
     {
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         Pauser.DestoryTarget();
     }
 

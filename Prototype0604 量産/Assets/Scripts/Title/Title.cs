@@ -50,9 +50,8 @@ public class Title : MonoBehaviour {
 
         isShown = false;
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    // Update is called once per frame
+    void FixedUpdate () {
         nowCountTime += Time.fixedDeltaTime;
 
         if (increaseRgbLogo >= 1 && RecieveInput())
@@ -60,6 +59,7 @@ public class Title : MonoBehaviour {
             pressBtn.sprite = pressAnyClickSprite;
             pressBtn.color = new Color(1, 1, 1, 1);
 
+            SoundManager.PlayerPlayerSe("decisionSe");
             SceneManager.LoadScene("Menu", LoadSceneMode.Single);
             SceneManager.UnloadSceneAsync("Title");
             return;
@@ -185,6 +185,9 @@ public class Title : MonoBehaviour {
     {
         foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
         {
+            if (key == KeyCode.Mouse0 || key == KeyCode.Mouse1 || key == KeyCode.Mouse2 ||
+                key == KeyCode.Mouse3 || key == KeyCode.Mouse4 || key == KeyCode.Mouse5 || key == KeyCode.Mouse6)
+                continue;
             if (Input.GetKeyDown(key))
                 return true;
         }

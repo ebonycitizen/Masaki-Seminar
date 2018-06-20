@@ -79,21 +79,29 @@ public class Pause : MonoBehaviour
         returnState = ReturnState.ReturnState_Yes;
     }
     #endregion
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!isReturnMenuState)
         {
             UpdateSelectPause();
             UpdateButtonPause();
-            ShowPauseState();
-            SetPauseSpriteEnable();
         }
         else
         {
             UpdateSelectMenu();
             UpdateButtonReturnMenu();
+        }
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!isReturnMenuState)
+        {
+            ShowPauseState();
+            SetPauseSpriteEnable();
+        }
+        else
+        {
             ShowReturnState();
             SetReturnMenuSpriteEnable();
         }
@@ -185,7 +193,11 @@ public class Pause : MonoBehaviour
     void UpdateButtonPause()
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        {            
+        {
+            if (pauseState == PauseState.PauseState_ReturnGame)
+                SoundManager.PlayerPlayerSe("cancelSe");
+            else
+                SoundManager.PlayerPlayerSe("decisionSe");
             //isReturnMenuStateによって変わる break pointの
             switch (pauseState)
             {
@@ -207,6 +219,10 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
+            if (returnState == ReturnState.ReturnState_No)
+                SoundManager.PlayerPlayerSe("cancelSe");
+            else
+                SoundManager.PlayerPlayerSe("decisionSe");
             switch (returnState)
             {
                 case ReturnState.ReturnState_Yes:
@@ -225,6 +241,7 @@ public class Pause : MonoBehaviour
 
         if (old == 0 && now != 0)
         {
+            SoundManager.PlayerPlayerSe("cursorSe");
             if (Input.GetAxis("Vertical") < 0)
                 pauseState++;
             if (Input.GetAxis("Vertical") > 0)
@@ -244,6 +261,7 @@ public class Pause : MonoBehaviour
 
         if (old == 0 && now != 0)
         {
+            SoundManager.PlayerPlayerSe("cursorSe");
             if (Input.GetAxis("Horizontal") > 0)
                 returnState++;
             if (Input.GetAxis("Horizontal") < 0)

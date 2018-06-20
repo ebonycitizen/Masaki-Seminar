@@ -93,16 +93,22 @@ public class Stage6Script : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        mshinIto[0].GetComponent<MshinItoScript>().SetFallenStoneRigid();
         mshinIto[0].GetComponent<MshinItoScript>().SetFallenStone();
 
         if (switch1.GetComponent<SwitchScript>().trapEnable)
         {
+            mshinIto[1].GetComponent<MshinItoScript>().SetFallenStoneRigid();
+            mshinIto[2].GetComponent<MshinItoScript>().SetFallenStoneRigid();
             mshinIto[1].GetComponent<MshinItoScript>().SetFallenStone();
             mshinIto[2].GetComponent<MshinItoScript>().SetFallenStone();
+
         }
 
         if (switch2.GetComponent<SwitchScript>().trapEnable)
         {
+            mshinIto[3].GetComponent<MshinItoScript>().SetFallenStoneRigid();
+            mshinIto[4].GetComponent<MshinItoScript>().SetFallenStoneRigid();
             mshinIto[3].GetComponent<MshinItoScript>().SetFallenStone();
             mshinIto[4].GetComponent<MshinItoScript>().SetFallenStone();
         }

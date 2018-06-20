@@ -11,7 +11,7 @@ public class MshinItoScript : MonoBehaviour
     int hitFloorCount;
 
     bool addForceEnable;
-    float FallenVeloc { get; set; }
+    public float FallenVeloc { get; set; }
 
     float HitFloor_AddForce { get; set; }
 
@@ -49,11 +49,15 @@ public class MshinItoScript : MonoBehaviour
     /// これはミシン糸を落下させるメソッド
     /// 床に落ちたら、力を与える
     /// </summary>
-    public void SetFallenStone()
+    public void SetFallenStoneRigid()
     {
         GetComponent<Rigidbody>().isKinematic = false;
-
         transform.GetComponent<Rigidbody>().AddForce(0, FallenVeloc, 0);
+    }
+    public void SetFallenStone()
+    {
+        //GetComponent<Rigidbody>().isKinematic = false;
+        //transform.GetComponent<Rigidbody>().AddForce(0, FallenVeloc, 0);
 
         if (hitFloorCount == 1 && addForceEnable)
         {

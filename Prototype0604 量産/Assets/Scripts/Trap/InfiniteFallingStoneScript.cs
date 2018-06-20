@@ -11,6 +11,11 @@ public class InfiniteFallingStoneScript : MonoBehaviour
     float FallenVeloc { get; set; }
     Vector3 stoneInitPos;
 
+    public Vector3 P_stoneInitPos
+    {
+        get { return stoneInitPos; }
+    }
+
     // Use this for initialization
     void Start()
     {

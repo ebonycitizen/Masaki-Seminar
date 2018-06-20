@@ -18,12 +18,12 @@ public class PlayerSe : MonoBehaviour {
     {
         if (playerController.g_duringJump)
         {
-            SoundManager.StopSe();
-            SoundManager.PlaySe("jumpSe");
+            SoundManager.StopPlayerSe();
+            SoundManager.PlayerPlayerSe("jumpSe");
         }
-        else if (playerController.P_CanControlPlayer && playerController.g_VeclocityX != 0 && !SoundManager.IsPlayingSe())
+        else if (playerController.isGround && playerController.P_CanControlPlayer && playerController.g_VeclocityX != 0 && !SoundManager.IsPlayingPlayerSe())
         {
-            SoundManager.PlaySe("walkSe");
+            SoundManager.PlayerPlayerSe("walkSe");
         }
     }
 }
